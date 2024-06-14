@@ -4,10 +4,10 @@ dotenv.config()
 
 //mysql db connection
 const db = mysql.createPool({
-  host: process.env.HOST,
-  user: process.env.USER,
-  password: process.env.Password,
-  database: process.env.DATABASE,
+  host: process.env.MYSQLHOST,
+  user: process.env.MYSQLUSER,
+  password: process.env.MYSQLPASSWORD,
+  database: process.env.MYSQL_DATABASE,
   insecureAuth: true
 });
 
