@@ -1,5 +1,5 @@
 const baseUrl = 'http://localhost:4000/todo'
-// //api to fetch all dns record
+// //api to fetch all todo items
 export async function getAllTodoRecord() {
   try {
     const response = await fetch(`${baseUrl}/`)
@@ -9,7 +9,7 @@ export async function getAllTodoRecord() {
     console.error(error.message)
   }
 }
-//api to create DNS record
+//api to create todo tasks
 export async function addTodo(data) {
   console.log(data)
   try {
@@ -27,7 +27,7 @@ export async function addTodo(data) {
     console.error(error.message)
   }
 }
-// //api to update dns record
+// //api to update todo item
 export async function updateTodoItem(id, data) {
   try {
     const response = await fetch(`${baseUrl}/update/${id}`, {
@@ -44,7 +44,7 @@ export async function updateTodoItem(id, data) {
     console.error(error.message)
   }
 }
-// //api to delete DNS Record
+// //api to delete todo item
 export async function deleteTodoItem(id) {
   console.log(id)
   try {

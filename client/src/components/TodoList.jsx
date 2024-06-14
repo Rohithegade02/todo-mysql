@@ -28,12 +28,14 @@ const TodoList = () => {
   const [filterTask, setFilterTask] = useState('all')
   const [updateIndex, setUpdatedIndex] = useState(null)
 
+  //modal open
   const handleOpen = () => {
     setOpen(true)
   }
-
+  //modal close
   const handleClose = () => setOpen(false)
 
+  //handle add or update function
   const handleAddOrUpdateTodoItem = async e => {
     e.preventDefault()
 
@@ -75,24 +77,24 @@ const TodoList = () => {
     setActivityPriority('')
     getAllTasks()
   }
-
+  //delete functionality
   const handleDelete = async id => {
     await deleteTodoItem(id)
     getAllTasks()
   }
-
+  //update complete functionality
   const handleComplete = async id => {
     const item = tasks.find(item => item.id === id)
     console.log(item)
     await updateTodoItem(id, { ...item, isCompleted: !item.isCompleted })
     getAllTasks() // Refresh the tasks list
   }
-
+  //get all tasks
   const getAllTasks = async () => {
     const response = await getAllTodoRecord()
     setTasks(response)
   }
-
+  //update funtion
   const handleUpdate = id => {
     const handleUpdateItem = tasks.find(item => item.id === id)
     setTitle(handleUpdateItem.title)
@@ -102,7 +104,7 @@ const TodoList = () => {
     setUpdatedIndex(id)
     handleOpen()
   }
-
+  //calling get functionality whenever page reloads
   useEffect(() => {
     getAllTasks()
   }, [])
@@ -112,8 +114,9 @@ const TodoList = () => {
       priorities.indexOf(a.activityPriority) -
       priorities.indexOf(b.activityPriority),
   )
-
+  //if tasks is finished
   const finishedTask = tasks.filter(task => task.isCompleted)
+  //if tasks is unfinished
   const unfinishedTask = tasks.filter(task => !task.isCompleted)
 
   return (
