@@ -13,14 +13,19 @@ app.use(cors())
 
 app.use(express.json());
 
-Todo.createTable().then(() => {       //checks whether table is created or not
-    console.log('Todo table created or already exists.');
-  }).catch(err => {
-    console.error('Error creating activities table:', err);
-  });
+
 
 app.use('/todo',TodoRoutes)         //todo route
 
 app.listen(PORT, () => {
-    console.log(`listening to server on ${PORT}`)
+  console.log(`listening to server on ${PORT}`)
+  try {
+    Todo.createTable().then(() => {       //checks whether table is created or not
+      console.log('Todo table created or already exists.');
+    }).catch(err => {
+      console.error('Error creating activities table:', err);
+    });
+  } catch (err) {
+    console.log(err)
+  }
 })
