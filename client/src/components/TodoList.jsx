@@ -84,7 +84,7 @@ const TodoList = () => {
   }
   //update complete functionality
   const handleComplete = async id => {
-    const item = tasks.find(item => item.id === id)
+    const item = tasks?.find(item => item.id === id)
     console.log(item)
     await updateTodoItem(id, { ...item, isCompleted: !item.isCompleted })
     getAllTasks() // Refresh the tasks list
@@ -96,7 +96,7 @@ const TodoList = () => {
   }
   //update funtion
   const handleUpdate = id => {
-    const handleUpdateItem = tasks.find(item => item.id === id)
+    const handleUpdateItem = tasks?.find(item => item.id === id)
     setTitle(handleUpdateItem.title)
     setActivityPriority(handleUpdateItem.activityPriority)
     setActivityType(handleUpdateItem.activityType)
@@ -109,15 +109,15 @@ const TodoList = () => {
     getAllTasks()
   }, [])
 
-  const sortedTasks = tasks.sort(
+  const sortedTasks = tasks?.sort(
     (a, b) =>
       priorities.indexOf(a.activityPriority) -
       priorities.indexOf(b.activityPriority),
   )
   //if tasks is finished
-  const finishedTask = tasks.filter(task => task.isCompleted)
+  const finishedTask = tasks?.filter(task => task?.isCompleted)
   //if tasks is unfinished
-  const unfinishedTask = tasks.filter(task => !task.isCompleted)
+  const unfinishedTask = tasks?.filter(task => !task?.isCompleted)
 
   return (
     <div
@@ -233,9 +233,9 @@ const TodoList = () => {
         </Modal>
         <div>
           {filterTask === 'all' &&
-            sortedTasks.map(item => (
+            sortedTasks?.map(item => (
               <TodoItem
-                key={item.id}
+                key={item?.id}
                 handleUpdate={handleUpdate}
                 handleComplete={handleComplete}
                 handleDelete={handleDelete}
@@ -243,24 +243,33 @@ const TodoList = () => {
               />
             ))}
           {filterTask === 'finished' &&
-            finishedTask.map(item => (
-              <TodoItem
-                key={item.id}
-                handleUpdate={handleUpdate}
-                handleComplete={handleComplete}
-                handleDelete={handleDelete}
-                {...item}
-              />
+            (finishedTask.length > 0 ? (
+              finishedTask.map(item => (
+                <TodoItem
+                  key={item?.id}
+                  handleUpdate={handleUpdate}
+                  handleComplete={handleComplete}
+                  handleDelete={handleDelete}
+                  {...item}
+                />
+              ))
+            ) : (
+              <div className='mt-10'>No finished tasks available</div>
             ))}
+
           {filterTask === 'in-progress' &&
-            unfinishedTask.map(item => (
-              <TodoItem
-                key={item.id}
-                handleUpdate={handleUpdate}
-                handleComplete={handleComplete}
-                handleDelete={handleDelete}
-                {...item}
-              />
+            (unfinishedTask.length > 0 ? (
+              unfinishedTask.map(item => (
+                <TodoItem
+                  key={item?.id}
+                  handleUpdate={handleUpdate}
+                  handleComplete={handleComplete}
+                  handleDelete={handleDelete}
+                  {...item}
+                />
+              ))
+            ) : (
+              <div className='mt-10'>No in-progress tasks available</div>
             ))}
         </div>
       </div>
